@@ -1,0 +1,5 @@
+G:\github things\customapps\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.0\SkibidiFreecam.csproj.AssemblyReference.cache
+G:\github things\customapps\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.0\SkibidiFreecam.GeneratedMSBuildEditorConfig.editorconfig
+G:\github things\customapps\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.0\SkibidiFreecam.AssemblyInfoInputs.cache
+G:\github things\customapps\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.0\SkibidiFreecam.AssemblyInfo.cs
+G:\github things\customapps\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.0\SkibidiFreecam.csproj.CoreCompileInputs.cache
