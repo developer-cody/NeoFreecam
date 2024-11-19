@@ -1,44 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using SkibidiFreecam;
 using UnityEngine.InputSystem;
+using UnityEngine;
 
-namespace SkibidiFreecam
+public class RayCast : MonoBehaviour
 {
-    public class RayCast : MonoBehaviour
+    public LayerMask mask;
+    LayerMask mask2;
+
+    void Start()
     {
-        public LayerMask mask;
-        public void Start ()
+        mask = LayerMask.GetMask("GorillaInteractable", "default");
+        mask2 = LayerMask.GetMask(new string[] { "Gorilla Trigger", "Zone", "Gorilla Body" });
+    }
+
+    void Update()
+    {
+        if (Mouse.current.leftButton.isPressed)
         {
-           mask = LayerMask.GetMask("GorillaInteractable", "default");
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()); 
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 10f, mask))
+            {
+                GorillaTagger.Instance.rightHandTransform.transform.position = hit.point;
+                GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
+                Plugin.Intense.HandR.transform.position = hit.point;
+            }
+            
+            if (Physics.Raycast(ray, out hit, 10f, mask2))
+            {
+                GorillaTagger.Instance.rightHandTransform.transform.position = hit.point;
+                GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
+                Plugin.Intense.HandR.transform.position = hit.point;
+            }
         }
-        public void LateUpdate()
+        else
         {
-            if (Mouse.current.leftButton.isPressed)
-            {
-                RaycastHit hit;
-                if (Physics.Raycast(Plugin.Intense.FlyCamera.transform.position, Plugin.Intense.FlyCamera.transform.forward, out hit, Mathf.Infinity, mask))
-                {
-                    Debug.Log(hit.transform.gameObject);
-                    GorillaTagger.Instance.rightHandTransform.transform.position = hit.point;
-                    GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
-                    Plugin.Intense.HandR.transform.position = hit.point;
-                }
-
-            }
-            else
-            {
-                GorillaTagger.Instance.leftHandTransform.transform.position = new Vector3(0f, -0.4f, 0.1f);
-                GorillaTagger.Instance.leftHandTriggerCollider.transform.position = new Vector3(0f, -0.4f, 0.1f);
-                Plugin.Intense.HandL.transform.localPosition = new Vector3(0f, -0.4f, 0.1f);
-                Plugin.Intense.HandL.transform.localEulerAngles = new Vector3(0, -265.4166f, 0);
-                Plugin.Intense.HandR.transform.localPosition = new Vector3(0f, -0.4f, 0.1f);
-                Plugin.Intense.HandR.transform.localEulerAngles = new Vector3(0, 265.4166f, 0);
-            }
-
-
-
+            ResetHandPositions();
         }
+    }
+
+    void ResetHandPositions()
+    {
+        Vector3 defaultPos = new Vector3(0f, -0.4f, 0.1f);
+        Vector3 leftHandEulerAngles = new Vector3(0, -265.4166f, 0);
+        Vector3 rightHandEulerAngles = new Vector3(0, 265.4166f, 0);
+
+        GorillaTagger.Instance.leftHandTransform.transform.position = defaultPos;
+        GorillaTagger.Instance.leftHandTriggerCollider.transform.position = defaultPos;
+        Plugin.Intense.HandL.transform.localPosition = defaultPos;
+        Plugin.Intense.HandL.transform.localEulerAngles = leftHandEulerAngles;
+        Plugin.Intense.HandR.transform.localPosition = defaultPos;
+        Plugin.Intense.HandR.transform.localEulerAngles = rightHandEulerAngles;
     }
 }

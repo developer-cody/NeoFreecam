@@ -1,0 +1,159 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\raycast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\raycast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\cammovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\cammovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\plugininfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\plugininfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\directory.build.props||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\directory.build.props||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\directory.build.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\directory.build.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\patches\\patchcontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\patches\\patchcontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|c:\\users\\rgerm\\source\\repos\\gtmods\\skibidifreecam\\skibidifreecam\\skibidifreecam.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{791A08F9-D302-4C44-805C-F0EC607ECCBD}|SkibidiFreecam\\SkibidiFreecam.csproj|solutionrelative:skibidifreecam\\skibidifreecam.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PluginInfo.cs",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\PluginInfo.cs",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\PluginInfo.cs",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\PluginInfo.cs",
+              "RelativeToolTip": "SkibidiFreecam\\PluginInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T05:11:31.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RayCast.cs",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\RayCast.cs",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\RayCast.cs",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\RayCast.cs*",
+              "RelativeToolTip": "SkibidiFreecam\\RayCast.cs*",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwAcAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T05:07:33.614Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Directory.Build.targets",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.targets",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\Directory.Build.targets",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.targets",
+              "RelativeToolTip": "SkibidiFreecam\\Directory.Build.targets",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-11-19T05:07:33.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CamMovement.cs",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\CamMovement.cs",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\CamMovement.cs",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\CamMovement.cs",
+              "RelativeToolTip": "SkibidiFreecam\\CamMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T05:07:33.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "patchcontrollers.cs",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Patches\\patchcontrollers.cs",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\Patches\\patchcontrollers.cs",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Patches\\patchcontrollers.cs",
+              "RelativeToolTip": "SkibidiFreecam\\Patches\\patchcontrollers.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAiwBgAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T05:07:33.738Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Plugin.cs",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Plugin.cs",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\Plugin.cs",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Plugin.cs",
+              "RelativeToolTip": "SkibidiFreecam\\Plugin.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAcwDIAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T05:07:33.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SkibidiFreecam.csproj",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\SkibidiFreecam.csproj",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\SkibidiFreecam.csproj",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\SkibidiFreecam.csproj",
+              "RelativeToolTip": "SkibidiFreecam\\SkibidiFreecam.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-19T05:07:33.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Directory.Build.props",
+              "DocumentMoniker": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\Directory.Build.props",
+              "ToolTip": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
+              "RelativeToolTip": "SkibidiFreecam\\Directory.Build.props",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-11-19T05:07:33.802Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

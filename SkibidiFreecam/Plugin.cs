@@ -1,8 +1,6 @@
-﻿using System;
-using BepInEx;
+﻿using BepInEx;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utilla;
 
 namespace SkibidiFreecam
 {
@@ -14,7 +12,7 @@ namespace SkibidiFreecam
         public GameObject HandR;
         public GameObject FlyCamera;
         bool rigconnected;
-        public static Plugin Intense {  get; set; }
+        public static Plugin Intense { get; set; }
         public static int layer = 29, layerMask = 1 << layer;
         private LayerMask baseMask;
         void Start()
@@ -51,12 +49,10 @@ namespace SkibidiFreecam
             Destroy(componet);
             Destroy(GorillaTagger.Instance.rightHandTriggerCollider.GetComponent<TransformFollow>());
             Destroy(GorillaTagger.Instance.leftHandTriggerCollider.GetComponent<TransformFollow>());
-
         }
 
         public void HandleRigCONST()
         {
-
             GorillaTagger.Instance.offlineVRRig.head.overrideTarget = GorillaTagger.Instance.mainCamera.transform;
             GorillaTagger.Instance.offlineVRRig.leftHand.overrideTarget = HandL.transform;
             GorillaTagger.Instance.offlineVRRig.rightHand.overrideTarget = HandR.transform;
@@ -64,11 +60,11 @@ namespace SkibidiFreecam
 
         void Update()
         {
-            if(Keyboard.current.cKey.wasPressedThisFrame)
+            if (Keyboard.current.cKey.wasPressedThisFrame)
             {
                 rigconnected = !rigconnected;
             }
-           if(rigconnected)
+            if (rigconnected)
             {
                 baseMask = GorillaLocomotion.Player.Instance.locomotionEnabledLayers;
                 GorillaLocomotion.Player.Instance.locomotionEnabledLayers = layerMask;
@@ -89,11 +85,7 @@ namespace SkibidiFreecam
                 GorillaTagger.Instance.rigidbody.velocity = Vector3.zero;
                 GorillaTagger.Instance.transform.position = FlyCamera.transform.position;
                 GorillaTagger.Instance.mainCamera.transform.rotation = FlyCamera.transform.rotation;
-
-
-
             }
-
         }
     }
 }
