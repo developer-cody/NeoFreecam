@@ -1,37 +1,34 @@
 ﻿using SkibidiFreecam;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System;
 
 public class RayCast : MonoBehaviour
 {
     public LayerMask mask;
     LayerMask mask2;
+    GameObject Line;
 
     void Start()
     {
         mask = LayerMask.GetMask("GorillaInteractable", "default");
         mask2 = LayerMask.GetMask(new string[] { "Gorilla Trigger", "Zone", "Gorilla Body" });
+        Line = new GameObject("LineRender", typeof(LineRenderer));
+        Line.GetComponent<LineRenderer>().material.shader = GorillaTagger.Instance.offlineVRRig.mainSkin.material.shader;
     }
 
     void Update()
     {
         if (Mouse.current.leftButton.isPressed)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()); 
+            Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(Mouse.current.position.ReadValue()); 
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 10f, mask))
+            if (Physics.Raycast(ray, out hit, 10f, ~mask2))
             {
-                GorillaTagger.Instance.rightHandTransform.transform.position = hit.point;
-                GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
-                Plugin.Intense.HandR.transform.position = hit.point;
-            }
-            
-            if (Physics.Raycast(ray, out hit, 10f, mask2))
-            {
-                GorillaTagger.Instance.rightHandTransform.transform.position = hit.point;
-                GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
-                Plugin.Intense.HandR.transform.position = hit.point;
+                    GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
+                    Plugin.Intense.HandR.transform.position = Vector3.Lerp(Plugin.Intense.HandR.transform.position, hit.point, 0.7f);
+                
             }
         }
         else
