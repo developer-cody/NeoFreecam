@@ -15,6 +15,7 @@ namespace SkibidiFreecam
         public static Plugin Intense { get; set; }
         public static int layer = 29, layerMask = 1 << layer;
         private LayerMask baseMask;
+
         void Start()
         {
             GorillaTagger.OnPlayerSpawned(OnGameInitialized);
@@ -78,6 +79,7 @@ namespace SkibidiFreecam
                 GorillaLocomotion.Player.Instance.headCollider.isTrigger = false;
             }
         }
+
         public void LateUpdate()
         {
             if (rigconnected)

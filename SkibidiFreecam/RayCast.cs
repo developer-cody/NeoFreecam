@@ -1,7 +1,6 @@
 ﻿using SkibidiFreecam;
-using UnityEngine.InputSystem;
 using UnityEngine;
-using System;
+using UnityEngine.InputSystem;
 
 public class RayCast : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class RayCast : MonoBehaviour
     void Start()
     {
         mask = LayerMask.GetMask("GorillaInteractable", "default");
-        mask2 = LayerMask.GetMask(new string[] { "Gorilla Trigger", "Zone", "Gorilla Body" });
+        mask2 = LayerMask.GetMask(new string[] { "Gorilla Trigger", "Zone", "Gorilla Body", "default"});
         Line = new GameObject("LineRender", typeof(LineRenderer));
         Line.GetComponent<LineRenderer>().material.shader = GorillaTagger.Instance.offlineVRRig.mainSkin.material.shader;
     }
@@ -21,14 +20,14 @@ public class RayCast : MonoBehaviour
     {
         if (Mouse.current.leftButton.isPressed)
         {
-            Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(Mouse.current.position.ReadValue()); 
+            Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(Mouse.current.position.ReadValue());
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 10f, ~mask2))
             {
-                    GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
-                    Plugin.Intense.HandR.transform.position = Vector3.Lerp(Plugin.Intense.HandR.transform.position, hit.point, 0.7f);
-                
+                GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
+                Plugin.Intense.HandR.transform.position = Vector3.Lerp(Plugin.Intense.HandR.transform.position, hit.point, 0.7f);
+
             }
         }
         else

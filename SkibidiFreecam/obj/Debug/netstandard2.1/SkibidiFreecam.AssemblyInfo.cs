@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SkibidiFreecam")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efbe37491c5b88a0b5eea14d5992aabd45b0fcf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SkibidiFreecam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SkibidiFreecam")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
