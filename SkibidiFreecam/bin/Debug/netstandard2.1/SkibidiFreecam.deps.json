@@ -1016,22 +1016,6 @@
           }
         }
       },
-      "SteamVR_Actions/0.0.0.0": {
-        "runtime": {
-          "SteamVR_Actions.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "SteamVR/0.0.0.0": {
-        "runtime": {
-          "SteamVR.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "Unity.XR.CoreUtils/0.0.0.0": {
         "runtime": {
           "Unity.XR.CoreUtils.dll": {
@@ -1200,22 +1184,6 @@
           }
         }
       },
-      "Unity.XR.OpenVR/0.0.0.0": {
-        "runtime": {
-          "Unity.XR.OpenVR.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "Valve.Newtonsoft.Json/9.0.0.0": {
-        "runtime": {
-          "Valve.Newtonsoft.Json.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.1.19813"
-          }
-        }
-      },
       "Meta.WitAi/0.0.0.0": {
         "runtime": {
           "Meta.WitAi.dll": {
@@ -1267,14 +1235,6 @@
       "Unity.ProBuilder.KdTree/0.0.0.0": {
         "runtime": {
           "Unity.ProBuilder.KdTree.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "Unity.XR.Management/0.0.0.0": {
-        "runtime": {
-          "Unity.XR.Management.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
           }
@@ -1882,16 +1842,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "SteamVR_Actions/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SteamVR/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Unity.XR.CoreUtils/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -1997,16 +1947,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Unity.XR.OpenVR/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Valve.Newtonsoft.Json/9.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Meta.WitAi/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -2038,11 +1978,6 @@
       "sha512": ""
     },
     "Unity.ProBuilder.KdTree/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Unity.XR.Management/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

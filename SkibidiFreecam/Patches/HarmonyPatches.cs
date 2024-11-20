@@ -1,13 +1,8 @@
-﻿using System;
+﻿using HarmonyLib;
 using System.Reflection;
-using HarmonyLib;
 
 namespace SkibidiFreecam.Patches
 {
-    /// <summary>
-    /// This class handles applying harmony patches to the game.
-    /// You should not need to modify this class.
-    /// </summary>
     public class HarmonyPatches
     {
         private static Harmony instance;

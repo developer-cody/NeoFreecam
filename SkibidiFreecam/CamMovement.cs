@@ -10,10 +10,10 @@ namespace SkibidiFreecam
 
         public void Update()
         {
-            Vector3 movefwd = Plugin.Intense.FlyCamera.transform.forward * verticalMultiplier / 30;
-            Vector3 moveright = Plugin.Intense.FlyCamera.transform.right * horizontalMultiplier / 30;
-            Vector3 moveleft = -Plugin.Intense.FlyCamera.transform.right * horizontalMultiplier / 30;
-            Vector3 moveback = -Plugin.Intense.FlyCamera.transform.forward * verticalMultiplier / 30;
+            Vector3 movefwd = Plugin.Intense.FlyCamera.transform.forward * verticalMultiplier / 50;
+            Vector3 moveright = Plugin.Intense.FlyCamera.transform.right * horizontalMultiplier / 50;
+            Vector3 moveleft = -Plugin.Intense.FlyCamera.transform.right * horizontalMultiplier / 50;
+            Vector3 moveback = -Plugin.Intense.FlyCamera.transform.forward * verticalMultiplier / 50;
             if (Keyboard.current.wKey.isPressed)
             {
                 Plugin.Intense.FlyCamera.transform.position += movefwd;

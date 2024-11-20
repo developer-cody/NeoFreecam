@@ -1,8 +1,4 @@
 ﻿using HarmonyLib;
-using Photon.Pun;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SkibidiFreecam.Patches
 {
@@ -17,8 +13,6 @@ namespace SkibidiFreecam.Patches
         {
             if (pressed)
             {
-
-
                 if (fingers.Contains("Rindex"))
                 {
                     __instance.rightControllerIndexFloat = 1f;
@@ -51,11 +45,7 @@ namespace SkibidiFreecam.Patches
                     __instance.leftControllerPrimaryButton = true;
                     __instance.leftGrab = true;
                 }
-
-
-
             }
-
         }
     }
 }
