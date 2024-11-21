@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace SkibidiFreecam
+namespace SkibidiFreecam.Movement
 {
     public class CamMovement : MonoBehaviour
     {
@@ -40,7 +40,14 @@ namespace SkibidiFreecam
 
         private void HandleRotation()
         {
-            if (Mouse.current.rightButton.isPressed)
+            if (Mouse.current.rightButton.isPressed && !Plugin.lockedCursorState)
+            {
+                Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+
+                Vector3 rotation = new Vector3(-mouseDelta.y, mouseDelta.x, 0) * cameraMovement;
+                Plugin.Intense.FlyCamera.transform.eulerAngles += rotation;
+            }
+            else if (Plugin.lockedCursorState)
             {
                 Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 

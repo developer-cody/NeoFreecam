@@ -8,19 +8,24 @@
     ".NETStandard,Version=v2.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Nutzer\\.nuget\\packages\\": {}
+    "C:\\Users\\rgerm\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\SkibidiFreecam.csproj",
+      "projectUniqueName": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\SkibidiFreecam.csproj",
       "projectName": "SkibidiFreecam",
-      "projectPath": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\SkibidiFreecam.csproj",
-      "packagesPath": "C:\\Users\\Nutzer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\obj\\",
+      "projectPath": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\SkibidiFreecam.csproj",
+      "packagesPath": "C:\\Users\\rgerm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rgerm\\source\\repos\\Gtmods\\SkibidiFreecam\\SkibidiFreecam\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Nutzer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rgerm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -44,8 +49,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
-      }
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "netstandard2.1": {
@@ -66,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

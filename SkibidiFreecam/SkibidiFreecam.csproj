@@ -276,8 +276,4 @@
       <HintPath>$(GameAssemblyPath)\websocket-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Patches\" />
-  </ItemGroup>
 </Project>

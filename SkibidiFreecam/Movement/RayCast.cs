@@ -1,4 +1,5 @@
-﻿using SkibidiFreecam;
+﻿using GorillaNetworking;
+using SkibidiFreecam;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,15 +8,13 @@ public class RayCast : MonoBehaviour
     public LayerMask interactableMask, propMask;
     private Vector3 lastMousePosition;
     private bool isMouseMoving;
-    private float sphereScale = 0.1f;
-
     private const float RaycastDistance = 2f;
-    private const float MinSphereScale = 0.05f;
-    private const float MaxSphereScale = 1f;
-    private const float ScrollSensitivity = 0.01f;
+    private const float MouseDeadZone = 1f;
 
     void Start()
     {
+        PhotonNetworkController.Instance.disableAFKKick = true;
+
         interactableMask = LayerMask.GetMask("GorillaInteractable");
         propMask = LayerMask.GetMask("Prop");
 
@@ -25,7 +24,6 @@ public class RayCast : MonoBehaviour
     void Update()
     {
         Vector3 currentMousePosition = Mouse.current.position.ReadValue();
-
         CheckMouseMovement(currentMousePosition);
 
         if (!Plugin.lockedCursorState)
@@ -36,12 +34,20 @@ public class RayCast : MonoBehaviour
             }
             else
             {
-                HandleMouseWheel();
+                ResetHandPositions();
             }
         }
         else
         {
-            ResetHandPositions();
+            if (Mouse.current.rightButton.isPressed)
+            {
+                GorillaTagger.Instance.rightHandTransform.position = GorillaTagger.Instance.headCollider.transform.position + GorillaTagger.Instance.headCollider.transform.forward * 0.5f + GorillaTagger.Instance.headCollider.transform.right * 0.2f;
+                GorillaTagger.Instance.leftHandTransform.position = GorillaTagger.Instance.headCollider.transform.position + GorillaTagger.Instance.headCollider.transform.forward * -0.5f + GorillaTagger.Instance.headCollider.transform.right * -0.2f;
+            }
+            else
+            {
+                ResetHandPositions();
+            }
         }
 
         lastMousePosition = currentMousePosition;
@@ -49,7 +55,7 @@ public class RayCast : MonoBehaviour
 
     private void CheckMouseMovement(Vector3 currentMousePosition)
     {
-        isMouseMoving = currentMousePosition != lastMousePosition;
+        isMouseMoving = (currentMousePosition - lastMousePosition).magnitude > MouseDeadZone;
     }
 
     private void HandleRaycast(Vector3 currentMousePosition)
@@ -69,19 +75,6 @@ public class RayCast : MonoBehaviour
     {
         GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hitPoint;
         Plugin.Intense.HandR.transform.position = hitPoint;
-    }
-
-    private void HandleMouseWheel()
-    {
-        if (Mouse.current.leftButton.isPressed)
-        {
-            float scroll = Mouse.current.scroll.ReadValue().y;
-            sphereScale += scroll * ScrollSensitivity;
-
-            sphereScale = Mathf.Clamp(sphereScale, MinSphereScale, MaxSphereScale);
-
-            Plugin.Intense.HandR.transform.localScale = new Vector3(sphereScale, sphereScale, sphereScale);
-        }
     }
 
     private void ResetHandPositions()
