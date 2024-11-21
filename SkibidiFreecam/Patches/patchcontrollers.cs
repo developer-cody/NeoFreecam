@@ -5,9 +5,8 @@ namespace SkibidiFreecam.Patches
     [HarmonyPatch(typeof(ControllerInputPoller), "Update")]
     public class patchcontrollers
     {
-        public static bool pressed;
+        public static bool pressed, islefthand;
         public static string fingers;
-        public static bool islefthand;
 
         static void Postfix(ControllerInputPoller __instance)
         {

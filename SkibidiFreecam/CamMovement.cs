@@ -5,38 +5,47 @@ namespace SkibidiFreecam
 {
     public class CamMovement : MonoBehaviour
     {
-        private const float horizontalMultiplier = 6f, verticalMultiplier = 4.5f;
-        public float speed = 0.1f;
+        private const float HorizontalMultiplier = 6f;
+        private const float VerticalMultiplier = 4.5f;
+        public float movementSpeed = 1f; 
+        public float cameraMovement = .1f; 
 
         public void Update()
         {
-            Vector3 movefwd = Plugin.Intense.FlyCamera.transform.forward * verticalMultiplier / 50;
-            Vector3 moveright = Plugin.Intense.FlyCamera.transform.right * horizontalMultiplier / 50;
-            Vector3 moveleft = -Plugin.Intense.FlyCamera.transform.right * horizontalMultiplier / 50;
-            Vector3 moveback = -Plugin.Intense.FlyCamera.transform.forward * verticalMultiplier / 50;
+            HandleMovement();
+            HandleRotation();
+        }
+        
+        private void HandleMovement()
+        {
+            Vector3 forwardMovement = Plugin.Intense.FlyCamera.transform.forward * VerticalMultiplier;
+            Vector3 rightMovement = Plugin.Intense.FlyCamera.transform.right * HorizontalMultiplier;
+
+            Vector3 movementDirection = Vector3.zero;
+
             if (Keyboard.current.wKey.isPressed)
-            {
-                Plugin.Intense.FlyCamera.transform.position += movefwd;
-            }
-
-            if (Keyboard.current.dKey.isPressed)
-            {
-                Plugin.Intense.FlyCamera.transform.position += moveright;
-            }
-
-            if (Keyboard.current.aKey.isPressed)
-            {
-                Plugin.Intense.FlyCamera.transform.position += moveleft;
-            }
+                movementDirection += forwardMovement;
 
             if (Keyboard.current.sKey.isPressed)
-            {
-                Plugin.Intense.FlyCamera.transform.position += moveback;
-            }
+                movementDirection -= forwardMovement;
 
+            if (Keyboard.current.aKey.isPressed)
+                movementDirection -= rightMovement;
+
+            if (Keyboard.current.dKey.isPressed)
+                movementDirection += rightMovement;
+
+            Plugin.Intense.FlyCamera.transform.position += movementDirection * movementSpeed * Time.deltaTime;
+        }
+
+        private void HandleRotation()
+        {
             if (Mouse.current.rightButton.isPressed)
             {
-                Plugin.Intense.FlyCamera.transform.eulerAngles += speed * new Vector3(-Mouse.current.delta.y.ReadValue(), Mouse.current.delta.x.ReadValue(), 0);
+                Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+
+                Vector3 rotation = new Vector3(-mouseDelta.y, mouseDelta.x, 0) * cameraMovement;
+                Plugin.Intense.FlyCamera.transform.eulerAngles += rotation;
             }
         }
     }

@@ -4,19 +4,20 @@ using UnityEngine.InputSystem;
 
 public class RayCast : MonoBehaviour
 {
-    public LayerMask mask;
-    LayerMask mask2;
-    private Vector3 heldHandPosition;
+    public LayerMask interactableMask, propMask;
     private Vector3 lastMousePosition;
     private bool isMouseMoving;
     private float sphereScale = 0.1f;
-    private Vector3 lastSpherePosition;
-    private float smoothFactor = 0.1f;
+
+    private const float RaycastDistance = 2f;
+    private const float MinSphereScale = 0.05f;
+    private const float MaxSphereScale = 1f;
+    private const float ScrollSensitivity = 0.01f;
 
     void Start()
     {
-        mask = LayerMask.GetMask(new string[] { "GorillaInteractable"/*, "Default"*/ });
-        mask2 = LayerMask.GetMask(new string[] { "Prop" });
+        interactableMask = LayerMask.GetMask("GorillaInteractable");
+        propMask = LayerMask.GetMask("Prop");
 
         lastMousePosition = Mouse.current.position.ReadValue();
     }
@@ -25,28 +26,17 @@ public class RayCast : MonoBehaviour
     {
         Vector3 currentMousePosition = Mouse.current.position.ReadValue();
 
-        if (currentMousePosition != lastMousePosition)
-        {
-            isMouseMoving = true;
-        }
-        else
-        {
-            isMouseMoving = false;
-        }
+        CheckMouseMovement(currentMousePosition);
 
-        if (Mouse.current.leftButton.isPressed)
+        if (!Plugin.lockedCursorState)
         {
-            if (isMouseMoving)
+            if (Mouse.current.leftButton.isPressed)
             {
-                Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(currentMousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, 2f, ~mask2))
-                {
-                    heldHandPosition = hit.point;
-                    GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
-                    Plugin.Intense.HandR.transform.position = hit.point;
-                }
+                HandleRaycast(currentMousePosition);
+            }
+            else
+            {
+                HandleMouseWheel();
             }
         }
         else
@@ -54,21 +44,47 @@ public class RayCast : MonoBehaviour
             ResetHandPositions();
         }
 
-        HandleMouseWheel();
-
         lastMousePosition = currentMousePosition;
     }
 
-    void HandleMouseWheel()
+    private void CheckMouseMovement(Vector3 currentMousePosition)
     {
-        float scroll = Mouse.current.scroll.ReadValue().y;
-        sphereScale += scroll * 0.01f;
-
-        if (sphereScale < 0.05f) sphereScale = 0.05f;
-        if (sphereScale > 1f) sphereScale = 1f;
+        isMouseMoving = currentMousePosition != lastMousePosition;
     }
 
-    void ResetHandPositions()
+    private void HandleRaycast(Vector3 currentMousePosition)
+    {
+        if (!isMouseMoving) return;
+
+        Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(currentMousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, RaycastDistance, ~propMask))
+        {
+            UpdateHandPosition(hit.point);
+        }
+    }
+
+    private void UpdateHandPosition(Vector3 hitPoint)
+    {
+        GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hitPoint;
+        Plugin.Intense.HandR.transform.position = hitPoint;
+    }
+
+    private void HandleMouseWheel()
+    {
+        if (Mouse.current.leftButton.isPressed)
+        {
+            float scroll = Mouse.current.scroll.ReadValue().y;
+            sphereScale += scroll * ScrollSensitivity;
+
+            sphereScale = Mathf.Clamp(sphereScale, MinSphereScale, MaxSphereScale);
+
+            Plugin.Intense.HandR.transform.localScale = new Vector3(sphereScale, sphereScale, sphereScale);
+        }
+    }
+
+    private void ResetHandPositions()
     {
         Vector3 defaultPos = new Vector3(0f, -0.4f, 0.1f);
         Vector3 leftHandEulerAngles = new Vector3(0, -265.4166f, 0);
@@ -78,6 +94,7 @@ public class RayCast : MonoBehaviour
         GorillaTagger.Instance.leftHandTriggerCollider.transform.position = defaultPos;
         Plugin.Intense.HandL.transform.localPosition = defaultPos;
         Plugin.Intense.HandL.transform.localEulerAngles = leftHandEulerAngles;
+
         Plugin.Intense.HandR.transform.localPosition = defaultPos;
         Plugin.Intense.HandR.transform.localEulerAngles = rightHandEulerAngles;
     }
