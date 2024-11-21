@@ -57,7 +57,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -72,6 +72,10 @@
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Plugin.cs",
@@ -79,7 +83,7 @@
               "RelativeDocumentMoniker": "SkibidiFreecam\\Plugin.cs",
               "ToolTip": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Plugin.cs",
               "RelativeToolTip": "SkibidiFreecam\\Plugin.cs",
-              "ViewState": "AgIAAAMBAAAAAAAAAAAYwCUAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAIwLEAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-19T05:07:33.74Z",
               "EditorCaption": ""
@@ -94,8 +98,7 @@
               "RelativeToolTip": "SkibidiFreecam\\Patches\\patchcontrollers.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAmwDEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-19T05:07:33.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-19T05:07:33.738Z"
             },
             {
               "$type": "Document",
@@ -119,8 +122,7 @@
               "RelativeToolTip": "SkibidiFreecam\\CamMovement.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAmwDMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-19T05:07:33.737Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-19T05:07:33.737Z"
             },
             {
               "$type": "Document",
@@ -132,8 +134,7 @@
               "RelativeToolTip": "SkibidiFreecam\\PluginInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-19T05:11:31.978Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-19T05:11:31.978Z"
             },
             {
               "$type": "Document",
@@ -145,8 +146,7 @@
               "RelativeToolTip": "SkibidiFreecam\\RayCast.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-19T05:07:33.614Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-19T05:07:33.614Z"
             },
             {
               "$type": "Document",
@@ -158,8 +158,7 @@
               "RelativeToolTip": "SkibidiFreecam\\Patches\\HarmonyPatches.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAqwCMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T04:08:57.477Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-20T04:08:57.477Z"
             },
             {
               "$type": "Document",
@@ -172,30 +171,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
               "WhenOpened": "2024-11-19T05:07:33.735Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Directory.Build.props",
-              "DocumentMoniker": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
-              "RelativeDocumentMoniker": "SkibidiFreecam\\Directory.Build.props",
-              "ToolTip": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
-              "RelativeToolTip": "SkibidiFreecam\\Directory.Build.props",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2024-11-20T16:54:21.319Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Directory.Build.props",
-              "DocumentMoniker": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
-              "RelativeDocumentMoniker": "SkibidiFreecam\\Directory.Build.props",
-              "ToolTip": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
-              "RelativeToolTip": "SkibidiFreecam\\Directory.Build.props",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2024-11-20T16:55:41.093Z"
             },
             {
               "$type": "Document",
@@ -222,8 +197,28 @@
               "WhenOpened": "2024-11-19T05:07:33.802Z"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Directory.Build.props",
+              "DocumentMoniker": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\Directory.Build.props",
+              "ToolTip": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
+              "RelativeToolTip": "SkibidiFreecam\\Directory.Build.props",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-11-20T16:54:21.319Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Directory.Build.props",
+              "DocumentMoniker": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
+              "RelativeDocumentMoniker": "SkibidiFreecam\\Directory.Build.props",
+              "ToolTip": "C:\\Users\\Nutzer\\Desktop\\Alle Ordner\\vr\\GitHub\\SkibidiFreecam\\SkibidiFreecam\\Directory.Build.props",
+              "RelativeToolTip": "SkibidiFreecam\\Directory.Build.props",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-11-20T16:55:41.093Z"
             },
             {
               "$type": "Bookmark",

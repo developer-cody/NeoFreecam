@@ -175,7 +175,7 @@ namespace SkibidiFreecam
                 }
                 else
                 {
-                    if (GUI.Button(new Rect(buttonX, Screen.height - 200f, buttonWidth, buttonHeight), "Generate Room"))
+                    if (GUI.Button(new Rect(buttonX, Screen.height - 260f, buttonWidth, buttonHeight), "Generate Room"))
                     {
                         await Generate();
                     }
