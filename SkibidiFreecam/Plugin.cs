@@ -3,6 +3,7 @@ using GorillaNetworking;
 using Photon.Pun;
 using SkibidiFreecam.Movement;
 using SkibidiFreecam.Patches;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,14 +13,21 @@ namespace SkibidiFreecam
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
     public class Plugin : BaseUnityPlugin
     {
+        // GameObjects
         public GameObject Head, HandL, HandR, FlyCamera;
-        private bool rigConnected = true;
+
+        // Bools
+        private bool rigConnected = true, guiEnabled;
+        public static bool lockedCursorState;
+
+        // Plugin
         public static Plugin Intense { get; set; }
+
+        // Integers
         public static int Layer = 29, LayerMask = 1 << Layer;
         private LayerMask baseMask;
-        private Rect windowRect = new Rect(Screen.width - 420, 10, 400, 550);
-        private bool guiEnabled;
-        public static bool lockedCursorState;
+
+        // Strings
         string RoomCode = "";
 
         void Start()
@@ -75,49 +83,57 @@ namespace SkibidiFreecam
 
         void Update()
         {
-            if (Keyboard.current.hKey.wasPressedThisFrame)
+            if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.CustomProperties["gameMode"].ToString().Contains("MODDED") || !PhotonNetwork.InRoom)
             {
-                guiEnabled = !guiEnabled;
-            }
+                if (Keyboard.current.hKey.wasPressedThisFrame)
+                {
+                    guiEnabled = !guiEnabled;
+                }
 
-            if (Keyboard.current.cKey.wasPressedThisFrame)
-            {
-                rigConnected = !rigConnected;
-            }
+                if (Keyboard.current.cKey.wasPressedThisFrame)
+                {
+                    rigConnected = !rigConnected;
+                }
 
-            if (Keyboard.current.lKey.wasPressedThisFrame)
-            {
-                lockedCursorState = !lockedCursorState;
-            }
+                if (Keyboard.current.lKey.wasPressedThisFrame)
+                {
+                    lockedCursorState = !lockedCursorState;
+                }
 
-            if (Keyboard.current.gKey.wasPressedThisFrame)
-            {
-                patchcontrollers.fingers = "Rgrip, Rindex, Rthumb";
-            }
+                if (Keyboard.current.gKey.wasPressedThisFrame)
+                {
+                    patchcontrollers.pressed = true;
+                    patchcontrollers.fingers = "Rgrip, Rindex, Rthumb";
+                }
 
-            if (lockedCursorState)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                if (lockedCursorState)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+
+                if (rigConnected)
+                {
+                    baseMask = GorillaLocomotion.Player.Instance.locomotionEnabledLayers;
+                    GorillaLocomotion.Player.Instance.locomotionEnabledLayers = LayerMask;
+                    GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = true;
+                    GorillaLocomotion.Player.Instance.headCollider.isTrigger = true;
+                }
+                else
+                {
+                    GorillaLocomotion.Player.Instance.locomotionEnabledLayers = baseMask;
+                    GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = false;
+                    GorillaLocomotion.Player.Instance.headCollider.isTrigger = false;
+                }
             }
             else
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-
-            if (rigConnected)
-            {
-                baseMask = GorillaLocomotion.Player.Instance.locomotionEnabledLayers;
-                GorillaLocomotion.Player.Instance.locomotionEnabledLayers = LayerMask;
-                GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = true;
-                GorillaLocomotion.Player.Instance.headCollider.isTrigger = true;
-            }
-            else
-            {
-                GorillaLocomotion.Player.Instance.locomotionEnabledLayers = baseMask;
-                GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = false;
-                GorillaLocomotion.Player.Instance.headCollider.isTrigger = false;
+                LeaveRoom(); 
             }
         }
 
@@ -131,9 +147,9 @@ namespace SkibidiFreecam
             }
         }
 
-        private async void OnGUI()
+        private void OnGUI()
         {
-            float t = Mathf.PingPong(Time.time * 0.8f, 1);
+            float t = Mathf.PingPong(Time.time * .2f, 1);
             Color color = Color.HSVToRGB(t, 1, 1);
             GUI.color = color;
 
@@ -147,65 +163,83 @@ namespace SkibidiFreecam
 
                 if (GUI.Button(new Rect(buttonX, Screen.height - 180f, buttonWidth, buttonHeight), emptycodecheck))
                 {
-                    if (RoomCode != "" && emptycodecheck == "Join Code")
-                    {
-                        emptycodecheck = "Join Code";
-
-                        if (PhotonNetwork.InRoom)
-                        {
-                            await NetworkSystem.Instance.ReturnToSinglePlayer();
-                        }
-
-                        PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(RoomCode, GorillaNetworking.JoinType.Solo);
-                    }
-                    else if (RoomCode == "")
-                    {
-                        if (emptycodecheck != "empty room!")
-                        {
-                            emptycodecheck = "empty room!";
-                            await Task.Delay(3000);
-                        }
-                    }
+                    HandleJoinRoom();
                 }
 
                 if (PhotonNetwork.InRoom)
                 {
                     if (GUI.Button(new Rect(buttonX, Screen.height - 210f, buttonWidth, buttonHeight), "Leave Room"))
                     {
-                        await NetworkSystem.Instance.ReturnToSinglePlayer();
-                    }
-                }
-
-                if (PhotonNetwork.CurrentRoom != null)
-                {
-                    GUI.Label(new Rect(buttonX, Screen.height - 120, 170, 20), "Code: " + PhotonNetwork.CurrentRoom.Name);
-                    GUI.Label(new Rect(buttonX, Screen.height - 100, 170, 20), "Room user count: " + PhotonNetwork.CurrentRoom.PlayerCount);
-                }
-
-                if (!PhotonNetwork.InRoom)
-                {
-                    if (GUI.Button(new Rect(buttonX, Screen.height - 210f, buttonWidth, buttonHeight), "Rejoin"))
-                    {
-                        await Rejoin();
+                        LeaveRoom();
                     }
 
-                    if (GUI.Button(new Rect(buttonX, Screen.height - 240f, buttonWidth, buttonHeight), "Generate Room"))
-                    {
-                        await Generate();
-                    }
+                    DisplayRoomInfo();
                 }
                 else
                 {
-                    if (GUI.Button(new Rect(buttonX, Screen.height - 10000f, buttonWidth, buttonHeight), "Generate Room"))
-                    {
-
-                    }
+                    DisplayJoinButtons();
                 }
 
-                GUI.Label(new Rect(buttonX, Screen.height - 80, 300, 20), "Live regional player count: " + PhotonNetwork.CountOfPlayers);
-                GUI.Label(new Rect(buttonX, Screen.height - 60, 300, 20), "Live regional Room count: " + PhotonNetwork.CountOfRooms);
+                DisplayLiveStats();
             }
         }
+
+        private void HandleJoinRoom()
+        {
+            if (!string.IsNullOrEmpty(RoomCode) && emptycodecheck == "Join Code" && RoomCode == RoomCode.ToUpper())
+            {
+                emptycodecheck = "Join Code";
+
+                if (PhotonNetwork.InRoom)
+                {
+                    NetworkSystem.Instance.ReturnToSinglePlayer();
+                }
+
+                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(RoomCode, GorillaNetworking.JoinType.Solo);
+            }
+            else
+            {
+                emptycodecheck = "Code Invalid!";
+                StartCoroutine(ResetErrorMessage());
+            }
+        }
+
+        private void LeaveRoom()
+        {
+            NetworkSystem.Instance.ReturnToSinglePlayer();
+        }
+
+        private void DisplayRoomInfo()
+        {
+            GUI.Label(new Rect(30f, Screen.height - 120, 170, 20), "Code: " + PhotonNetwork.CurrentRoom.Name);
+            GUI.Label(new Rect(30f, Screen.height - 100, 170, 20), "Room user count: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        }
+
+        private void DisplayJoinButtons()
+        {
+            if (GUI.Button(new Rect(30f, Screen.height - 210f, 180f, 30f), "Rejoin"))
+            {
+                Rejoin();
+            }
+
+            if (GUI.Button(new Rect(30f, Screen.height - 240f, 180f, 30f), "Generate Room"))
+            {
+                Generate();
+            }
+        }
+
+        private void DisplayLiveStats()
+        {
+            GUI.Label(new Rect(30f, Screen.height - 80, 300, 20), "Live regional player count: " + PhotonNetwork.CountOfPlayers);
+            GUI.Label(new Rect(30f, Screen.height - 60, 300, 20), "Live regional Room count: " + PhotonNetwork.CountOfRooms);
+        }
+
+        private IEnumerator ResetErrorMessage()
+        {
+            yield return new WaitForSeconds(3);
+            emptycodecheck = "Join Code";
+        }
+
 
         private async Task Generate()
         {

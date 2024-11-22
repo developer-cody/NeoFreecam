@@ -5,10 +5,12 @@ namespace SkibidiFreecam.Movement
 {
     public class CamMovement : MonoBehaviour
     {
-        private const float HorizontalMultiplier = 6f;
-        private const float VerticalMultiplier = 4.5f;
-        public float movementSpeed = 1f;
-        public float cameraMovement = .1f;
+        // Vectors
+        private Vector2 lastMousePosition = Vector2.zero;
+
+        // Float
+        private const float HorizontalMultiplier = 6f, VerticalMultiplier = 4.5f;
+        public float movementSpeed = 1.5f, cameraMovement = .1f, smoothFactor = 0.5f, currentRotationX = 0f;
 
         public void Update()
         {
@@ -20,7 +22,6 @@ namespace SkibidiFreecam.Movement
         {
             Vector3 forwardMovement = Plugin.Intense.FlyCamera.transform.forward * VerticalMultiplier;
             Vector3 rightMovement = Plugin.Intense.FlyCamera.transform.right * HorizontalMultiplier;
-
             Vector3 movementDirection = Vector3.zero;
 
             if (Keyboard.current.wKey.isPressed)
@@ -40,19 +41,19 @@ namespace SkibidiFreecam.Movement
 
         private void HandleRotation()
         {
-            if (Mouse.current.rightButton.isPressed && !Plugin.lockedCursorState)
+            if (Mouse.current.rightButton.isPressed && !Plugin.lockedCursorState || Plugin.lockedCursorState)
             {
                 Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+                Vector2 smoothedDelta = Vector2.Lerp(lastMousePosition, mouseDelta, smoothFactor);
+                lastMousePosition = smoothedDelta;
 
-                Vector3 rotation = new Vector3(-mouseDelta.y, mouseDelta.x, 0) * cameraMovement;
-                Plugin.Intense.FlyCamera.transform.eulerAngles += rotation;
-            }
-            else if (Plugin.lockedCursorState)
-            {
-                Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+                float rotationX = -smoothedDelta.y * cameraMovement;
+                float rotationY = smoothedDelta.x * cameraMovement;
 
-                Vector3 rotation = new Vector3(-mouseDelta.y, mouseDelta.x, 0) * cameraMovement;
-                Plugin.Intense.FlyCamera.transform.eulerAngles += rotation;
+                currentRotationX += rotationX;
+                currentRotationX = Mathf.Clamp(currentRotationX, -90f, 90f);
+
+                Plugin.Intense.FlyCamera.transform.eulerAngles += new Vector3(rotationX, rotationY, 0);
             }
         }
     }
