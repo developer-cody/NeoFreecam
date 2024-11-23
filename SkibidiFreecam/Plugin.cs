@@ -2,7 +2,6 @@
 using GorillaNetworking;
 using Photon.Pun;
 using SkibidiFreecam.Movement;
-using SkibidiFreecam.Patches;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -17,22 +16,24 @@ namespace SkibidiFreecam
         public GameObject Head, HandL, HandR, FlyCamera;
 
         // Bools
-        private bool rigConnected = true, guiEnabled;
+        private bool rigConnected = true, guiEnabled, RigCanBeSeen = false;
         public static bool lockedCursorState;
 
-        // Plugin
+        // Classes
         public static Plugin Intense { get; set; }
+        public CamMovement camMovementScript;
 
         // Integers
         public static int Layer = 29, LayerMask = 1 << Layer;
         private LayerMask baseMask;
 
         // Strings
-        string RoomCode = "";
+        string RoomCode = "SKIBIDI";
 
         void Start()
         {
             GorillaTagger.OnPlayerSpawned(InitializeGame);
+            camMovementScript = FindObjectOfType<CamMovement>();
         }
 
         void InitializeGame()
@@ -100,12 +101,6 @@ namespace SkibidiFreecam
                     lockedCursorState = !lockedCursorState;
                 }
 
-                if (Keyboard.current.gKey.wasPressedThisFrame)
-                {
-                    patchcontrollers.pressed = true;
-                    patchcontrollers.fingers = "Rgrip, Rindex, Rthumb";
-                }
-
                 if (lockedCursorState)
                 {
                     Cursor.lockState = CursorLockMode.Locked;
@@ -130,15 +125,32 @@ namespace SkibidiFreecam
                     GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = false;
                     GorillaLocomotion.Player.Instance.headCollider.isTrigger = false;
                 }
+
+                if (RigCanBeSeen)
+                {
+                    GorillaTagger.Instance.offlineVRRig.headBodyOffset.x = 180f;
+                }
+                else
+                {
+                    GorillaTagger.Instance.offlineVRRig.headBodyOffset.x = 0f;
+                }
             }
             else
             {
-                LeaveRoom(); 
+                LeaveRoom();
             }
         }
 
         void LateUpdate()
         {
+            if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.CustomProperties["gameMode"].ToString().Contains("MODDED") || !PhotonNetwork.InRoom)
+            {
+                if (Keyboard.current.pKey.wasPressedThisFrame)
+                {
+                    RigCanBeSeen = !RigCanBeSeen;
+                }
+            }
+
             if (rigConnected)
             {
                 GorillaTagger.Instance.rigidbody.velocity = Vector3.zero;
@@ -156,6 +168,7 @@ namespace SkibidiFreecam
             float buttonWidth = 180f;
             float buttonHeight = 30f;
             float buttonX = 30f;
+            float speedSliderValue = 1.5f;
 
             if (guiEnabled)
             {
@@ -181,6 +194,20 @@ namespace SkibidiFreecam
                 }
 
                 DisplayLiveStats();
+                GUI.BeginGroup(new Rect(Screen.width - 220, 10, 200, 100));
+
+                GUI.Box(new Rect(0, 0, 200, 100), "Settings");
+
+                GUI.Label(new Rect(10, 30, 180, 20), "Speed:");
+
+                speedSliderValue = GUI.HorizontalSlider(new Rect(10, 55, 180, 20), speedSliderValue, 0.5f, 5f);
+
+                if (camMovementScript != null)
+                {
+                    camMovementScript.movementSpeed = speedSliderValue;
+                }
+
+                GUI.EndGroup();
             }
         }
 
