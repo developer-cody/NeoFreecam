@@ -2,6 +2,7 @@
 using GorillaNetworking;
 using Photon.Pun;
 using SkibidiFreecam.Movement;
+using SkibidiFreecam.Patches;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace SkibidiFreecam
         public GameObject Head, HandL, HandR, FlyCamera;
 
         // Bools
-        private bool rigConnected = true, guiEnabled, RigCanBeSeen = false;
+        private bool rigConnected = true, guiEnabled, rigCanBeSeen = false, toggleNoclip;
         public static bool lockedCursorState;
 
         // Classes
@@ -28,7 +29,12 @@ namespace SkibidiFreecam
         private LayerMask baseMask;
 
         // Strings
-        string RoomCode = "SKIBIDI";
+        string roomCode = "SKIBIDI";
+        private static string emptyCodeCheck = "Join Code";
+        private string code;
+
+        // Speed control
+        private float speedSliderValue = 1.5f;
 
         void Start()
         {
@@ -86,53 +92,36 @@ namespace SkibidiFreecam
         {
             if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.CustomProperties["gameMode"].ToString().Contains("MODDED") || !PhotonNetwork.InRoom)
             {
-                if (Keyboard.current.hKey.wasPressedThisFrame)
-                {
-                    guiEnabled = !guiEnabled;
-                }
-
-                if (Keyboard.current.cKey.wasPressedThisFrame)
-                {
-                    rigConnected = !rigConnected;
-                }
-
-                if (Keyboard.current.lKey.wasPressedThisFrame)
-                {
-                    lockedCursorState = !lockedCursorState;
-                }
-
-                if (lockedCursorState)
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                }
+                HandleKeyboardInputs();
 
                 if (rigConnected)
                 {
-                    baseMask = GorillaLocomotion.Player.Instance.locomotionEnabledLayers;
-                    GorillaLocomotion.Player.Instance.locomotionEnabledLayers = LayerMask;
-                    GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = true;
-                    GorillaLocomotion.Player.Instance.headCollider.isTrigger = true;
+                    if (toggleNoclip)
+                    {
+                        EnableNoclip();
+                    }
+                    else
+                    {
+                        DisableNoclip();
+                    }
                 }
                 else
                 {
-                    GorillaLocomotion.Player.Instance.locomotionEnabledLayers = baseMask;
-                    GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = false;
-                    GorillaLocomotion.Player.Instance.headCollider.isTrigger = false;
+                    ResetColliders();
                 }
 
-                if (RigCanBeSeen)
+                if (rigCanBeSeen)
                 {
                     GorillaTagger.Instance.offlineVRRig.headBodyOffset.x = 180f;
                 }
                 else
                 {
                     GorillaTagger.Instance.offlineVRRig.headBodyOffset.x = 0f;
+                }
+
+                if (PhotonNetwork.InRoom)
+                {
+                    code = NetworkSystem.Instance.RoomName;
                 }
             }
             else
@@ -147,7 +136,7 @@ namespace SkibidiFreecam
             {
                 if (Keyboard.current.pKey.wasPressedThisFrame)
                 {
-                    RigCanBeSeen = !RigCanBeSeen;
+                    rigCanBeSeen = !rigCanBeSeen;
                 }
             }
 
@@ -159,6 +148,69 @@ namespace SkibidiFreecam
             }
         }
 
+        private void HandleKeyboardInputs()
+        {
+            if (Keyboard.current.hKey.wasPressedThisFrame)
+            {
+                guiEnabled = !guiEnabled;
+            }
+
+            if (Keyboard.current.cKey.wasPressedThisFrame)
+            {
+                rigConnected = !rigConnected;
+            }
+
+            if (Keyboard.current.lKey.wasPressedThisFrame)
+            {
+                lockedCursorState = !lockedCursorState;
+                UpdateCursorState();
+            }
+
+            if (Keyboard.current.iKey.wasPressedThisFrame)
+            {
+                toggleNoclip = !toggleNoclip;  
+            }
+        }
+
+        private void EnableNoclip()
+        {
+            baseMask = GorillaLocomotion.Player.Instance.locomotionEnabledLayers;
+
+            GorillaLocomotion.Player.Instance.locomotionEnabledLayers = LayerMask;
+
+            GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = true;
+            GorillaLocomotion.Player.Instance.headCollider.isTrigger = true;
+        }
+
+        private void DisableNoclip()
+        {
+            GorillaLocomotion.Player.Instance.locomotionEnabledLayers = baseMask;
+
+            GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = false;
+            GorillaLocomotion.Player.Instance.headCollider.isTrigger = false;
+        }
+
+        private void UpdateCursorState()
+        {
+            if (lockedCursorState)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+
+        private void ResetColliders()
+        {
+            GorillaLocomotion.Player.Instance.locomotionEnabledLayers = baseMask;
+            GorillaLocomotion.Player.Instance.bodyCollider.isTrigger = false;
+            GorillaLocomotion.Player.Instance.headCollider.isTrigger = false;
+        }
+
         private void OnGUI()
         {
             float t = Mathf.PingPong(Time.time * .2f, 1);
@@ -168,13 +220,12 @@ namespace SkibidiFreecam
             float buttonWidth = 180f;
             float buttonHeight = 30f;
             float buttonX = 30f;
-            float speedSliderValue = 1.5f;
 
             if (guiEnabled)
             {
-                RoomCode = GUI.TextArea(new Rect(buttonX, Screen.height - 150f, buttonWidth, buttonHeight), RoomCode, 10);
+                roomCode = GUI.TextArea(new Rect(buttonX, Screen.height - 150f, buttonWidth, buttonHeight), roomCode, 10);
 
-                if (GUI.Button(new Rect(buttonX, Screen.height - 180f, buttonWidth, buttonHeight), emptycodecheck))
+                if (GUI.Button(new Rect(buttonX, Screen.height - 180f, buttonWidth, buttonHeight), emptyCodeCheck))
                 {
                     HandleJoinRoom();
                 }
@@ -194,39 +245,42 @@ namespace SkibidiFreecam
                 }
 
                 DisplayLiveStats();
-                GUI.BeginGroup(new Rect(Screen.width - 220, 10, 200, 100));
-
-                GUI.Box(new Rect(0, 0, 200, 100), "Settings");
-
-                GUI.Label(new Rect(10, 30, 180, 20), "Speed:");
-
-                speedSliderValue = GUI.HorizontalSlider(new Rect(10, 55, 180, 20), speedSliderValue, 0.5f, 5f);
-
-                if (camMovementScript != null)
-                {
-                    camMovementScript.movementSpeed = speedSliderValue;
-                }
-
-                GUI.EndGroup();
+                DisplaySpeedSlider();
             }
+        }
+
+        private void DisplaySpeedSlider()
+        {
+            GUI.BeginGroup(new Rect(Screen.width - 220, 10, 200, 100));
+            GUI.Box(new Rect(0, 0, 200, 100), "Settings");
+            GUI.Label(new Rect(10, 30, 180, 20), "Speed:");
+
+            speedSliderValue = GUI.HorizontalSlider(new Rect(10, 55, 180, 20), speedSliderValue, 0.5f, 5f);
+
+            if (camMovementScript != null)
+            {
+                camMovementScript.movementSpeed = speedSliderValue;
+            }
+
+            GUI.EndGroup();
         }
 
         private void HandleJoinRoom()
         {
-            if (!string.IsNullOrEmpty(RoomCode) && emptycodecheck == "Join Code" && RoomCode == RoomCode.ToUpper())
+            if (!string.IsNullOrEmpty(roomCode) && emptyCodeCheck == "" && roomCode == roomCode.ToUpper())
             {
-                emptycodecheck = "Join Code";
+                emptyCodeCheck = "";
 
                 if (PhotonNetwork.InRoom)
                 {
                     NetworkSystem.Instance.ReturnToSinglePlayer();
                 }
 
-                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(RoomCode, GorillaNetworking.JoinType.Solo);
+                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomCode, GorillaNetworking.JoinType.Solo);
             }
             else
             {
-                emptycodecheck = "Code Invalid!";
+                emptyCodeCheck = "Code Invalid!";
                 StartCoroutine(ResetErrorMessage());
             }
         }
@@ -264,15 +318,14 @@ namespace SkibidiFreecam
         private IEnumerator ResetErrorMessage()
         {
             yield return new WaitForSeconds(3);
-            emptycodecheck = "Join Code";
+            emptyCodeCheck = "Join Code";
         }
-
 
         private async Task Generate()
         {
             if (PhotonNetwork.InRoom)
             {
-                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(RoomCode, GorillaNetworking.JoinType.Solo);
+                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomCode, GorillaNetworking.JoinType.Solo);
             }
 
             string code = null;
@@ -286,17 +339,8 @@ namespace SkibidiFreecam
             PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(code, GorillaNetworking.JoinType.Solo);
         }
 
-        private static string emptycodecheck = "Join Code";
         private async Task Rejoin()
         {
-            string code = PhotonNetwork.CurrentRoom.ToString();
-
-            if (PhotonNetwork.InRoom)
-            {
-                code = NetworkSystem.Instance.RoomName;
-                await NetworkSystem.Instance.ReturnToSinglePlayer();
-            }
-
             await Task.Delay(3000);
             PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(code, GorillaNetworking.JoinType.Solo);
         }

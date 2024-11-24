@@ -12,7 +12,7 @@ public class RayCast : MonoBehaviour
     // Layers
     public LayerMask interactableMask, propMask;
 
-    // Vecotrs
+    // Vectors
     private Vector3 lastMousePosition;
 
     // Floats
@@ -31,7 +31,6 @@ public class RayCast : MonoBehaviour
     void Update()
     {
         Vector3 currentMousePosition = Mouse.current.position.ReadValue();
-
         CheckMouseMovement(currentMousePosition);
 
         if (!Plugin.lockedCursorState)
@@ -47,33 +46,8 @@ public class RayCast : MonoBehaviour
         }
         else
         {
-            // Right Hand Stuff
-            Plugin.Intense.HandR.transform.localEulerAngles = new Vector3(0, -14.78f, -5f);
-
-            Plugin.Intense.HandR.transform.localPosition = new Vector3(0.2f, -0.15f, .3f);
-            GorillaTagger.Instance.rightHandTransform.localPosition = Plugin.Intense.HandL.transform.localPosition;
-            GorillaTagger.Instance.rightHandTriggerCollider.transform.position = Plugin.Intense.HandR.transform.position;
-
-            if (Mouse.current.rightButton.isPressed)
-            {
-                Plugin.Intense.HandR.transform.localPosition = new Vector3(0f, -.15f, .7f);
-                GorillaTagger.Instance.rightHandTransform.localPosition = Plugin.Intense.HandL.transform.localPosition;
-                GorillaTagger.Instance.rightHandTriggerCollider.transform.position = Plugin.Intense.HandR.transform.position;
-            }
-
-            // Left Hand Stuff
-            Plugin.Intense.HandL.transform.localEulerAngles = Vector3.zero;
-
-            Plugin.Intense.HandL.transform.localPosition = new Vector3(-0.2f, -0.15f, .3f);
-            GorillaTagger.Instance.leftHandTransform.localPosition = Plugin.Intense.HandL.transform.localPosition;
-            GorillaTagger.Instance.leftHandTriggerCollider.transform.position = Plugin.Intense.HandL.transform.position;
-
-            if (Mouse.current.leftButton.isPressed)
-            {
-                Plugin.Intense.HandL.transform.localPosition = new Vector3(-0, -.15f, .7f);
-                GorillaTagger.Instance.leftHandTransform.localPosition = Plugin.Intense.HandL.transform.localPosition;
-                GorillaTagger.Instance.leftHandTriggerCollider.transform.position = Plugin.Intense.HandL.transform.position;
-            }
+            HandleHandPositioning(Plugin.Intense.HandR.transform, Mouse.current.rightButton.isPressed);
+            HandleHandPositioning(Plugin.Intense.HandL.transform, Mouse.current.leftButton.isPressed);
         }
 
         lastMousePosition = currentMousePosition;
@@ -103,18 +77,35 @@ public class RayCast : MonoBehaviour
         Plugin.Intense.HandR.transform.position = hitPoint;
     }
 
-    private void ResetHandPositions()
+    private void HandleHandPositioning(Transform handTransform, bool isButtonPressed)
     {
         Vector3 defaultPos = new Vector3(0f, -0.4f, 0.1f);
-        Vector3 leftHandEulerAngles = new Vector3(0, -265.4166f, 0);
-        Vector3 rightHandEulerAngles = new Vector3(0, 265.4166f, 0);
+        Vector3 defaultEulerAngles = handTransform == Plugin.Intense.HandL ? Vector3.zero : new Vector3(0, -14.78f, -5f);
 
-        GorillaTagger.Instance.leftHandTransform.transform.position = defaultPos;
-        GorillaTagger.Instance.leftHandTriggerCollider.transform.position = defaultPos;
-        Plugin.Intense.HandL.transform.localPosition = defaultPos;
-        Plugin.Intense.HandL.transform.localEulerAngles = leftHandEulerAngles;
+        if (isButtonPressed)
+        {
+            handTransform.localPosition = new Vector3(handTransform.localPosition.x, -0.15f, 0.7f);
+        }
+        else
+        {
+            handTransform.localPosition = defaultPos;
+        }
 
-        Plugin.Intense.HandR.transform.localPosition = defaultPos;
-        Plugin.Intense.HandR.transform.localEulerAngles = rightHandEulerAngles;
+        handTransform.localEulerAngles = defaultEulerAngles;
+
+        if (handTransform == Plugin.Intense.HandR)
+        {
+            GorillaTagger.Instance.rightHandTriggerCollider.transform.position = handTransform.position;
+        }
+        else
+        {
+            GorillaTagger.Instance.leftHandTriggerCollider.transform.position = handTransform.position;
+        }
+    }
+
+    private void ResetHandPositions()
+    {
+        HandleHandPositioning(Plugin.Intense.HandL.transform, false);
+        HandleHandPositioning(Plugin.Intense.HandR.transform, false);
     }
 }
