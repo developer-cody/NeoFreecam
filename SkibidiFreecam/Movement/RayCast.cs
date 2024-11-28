@@ -1,6 +1,7 @@
 ﻿using GorillaNetworking;
 using PlayFab.GroupsModels;
 using SkibidiFreecam;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,28 +17,37 @@ public class RayCast : MonoBehaviour
     private Vector3 lastMousePosition;
 
     // Floats
-    private const float RaycastDistance = 2f, MouseDeadZone = 1f;
+    private const float RaycastDistance = 10f, MouseDeadZone = 1f;
+
+    GameObject sphere;
 
     void Start()
     {
         PhotonNetworkController.Instance.disableAFKKick = true;
 
         interactableMask = LayerMask.GetMask("GorillaInteractable");
-        propMask = LayerMask.GetMask("Prop");
 
-        lastMousePosition = Mouse.current.position.ReadValue();
+      sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        Destroy(sphere.GetComponent<SphereCollider>());
+        sphere.GetComponent<Renderer>().material.shader = GorillaTagger.Instance.offlineVRRig.mainSkin.material.shader;
+        sphere.transform.localScale = new Vector3(.1f, .1f, .1f);
+        sphere.name = "Mouse";
+
     }
 
     void Update()
     {
-        Vector3 currentMousePosition = Mouse.current.position.ReadValue();
-        CheckMouseMovement(currentMousePosition);
+
+        Vector3 mousepositon = Mouse.current.position.ReadValue();
+        mousepositon.z = 5f;
+        mousepositon = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenToWorldPoint(mousepositon);
+        sphere.transform.position = mousepositon;
 
         if (!Plugin.lockedCursorState)
         {
             if (Mouse.current.leftButton.isPressed)
             {
-                HandleRaycast(currentMousePosition);
+                HandleRaycast();
             }
             else
             {
@@ -50,31 +60,29 @@ public class RayCast : MonoBehaviour
             HandleHandPositioning(Plugin.Intense.HandL.transform, Mouse.current.leftButton.isPressed);
         }
 
-        lastMousePosition = currentMousePosition;
+       
     }
 
-    private void CheckMouseMovement(Vector3 currentMousePosition)
-    {
-        isMouseMoving = (currentMousePosition - lastMousePosition).magnitude > MouseDeadZone;
-    }
 
-    private void HandleRaycast(Vector3 currentMousePosition)
+    private void HandleRaycast()
     {
-        if (!isMouseMoving) return;
-
-        Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(currentMousePosition);
+        Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, RaycastDistance, ~propMask))
+        if (Physics.Raycast(ray, out hit,100,interactableMask))
         {
-            UpdateHandPosition(hit.point);
+            UpdateHandPosition(hit.transform.position);
+            Debug.Log("hit: " + hit.transform.gameObject.name);
         }
+
     }
 
     private void UpdateHandPosition(Vector3 hitPoint)
     {
+        GorillaTagger.Instance.rightHandTransform.transform.position = hitPoint;
+
         GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hitPoint;
-        Plugin.Intense.HandR.transform.position = hitPoint;
+
     }
 
     private void HandleHandPositioning(Transform handTransform, bool isButtonPressed)
