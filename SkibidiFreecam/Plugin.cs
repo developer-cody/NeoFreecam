@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using GorillaLocomotion;
 using GorillaNetworking;
 using Photon.Pun;
 using SkibidiFreecam.Movement;
@@ -17,7 +18,7 @@ namespace SkibidiFreecam
         public GameObject Head, HandL, HandR, FlyCamera;
 
         // Bools
-        private bool rigConnected = true, guiEnabled, rigCanBeSeen = false, toggleNoclip;
+        private bool rigConnected = true, guiEnabled, rigCanBeSeen = false, toggleNoclip, DevMode;
         public static bool lockedCursorState;
 
         // Classes
@@ -47,6 +48,11 @@ namespace SkibidiFreecam
             InitializeFlyCamera();
             ConfigureRig();
             CleanUpUnnecessaryComponents();
+
+            DevMode = PhotonNetwork.LocalPlayer.UserId == "B00F105719D38AB9"
+                || PhotonNetwork.LocalPlayer.UserId == "6CD07769D1E6C934"
+                || PhotonNetwork.LocalPlayer.UserId == "637F3CE95093F98E";
+
             Intense = this;
         }
 
@@ -90,7 +96,7 @@ namespace SkibidiFreecam
 
         void Update()
         {
-            if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.CustomProperties["gameMode"].ToString().Contains("MODDED") || !PhotonNetwork.InRoom)
+            if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.CustomProperties["gameMode"].ToString().Contains("MODDED") || !PhotonNetwork.InRoom || DevMode)
             {
                 HandleKeyboardInputs();
 
@@ -126,7 +132,7 @@ namespace SkibidiFreecam
             }
             else
             {
-                LeaveRoom();
+                RoomPatches.Disconnect();
             }
         }
 
@@ -168,7 +174,7 @@ namespace SkibidiFreecam
 
             if (Keyboard.current.iKey.wasPressedThisFrame)
             {
-                toggleNoclip = !toggleNoclip;  
+                toggleNoclip = !toggleNoclip;
             }
         }
 
@@ -227,14 +233,14 @@ namespace SkibidiFreecam
 
                 if (GUI.Button(new Rect(buttonX, Screen.height - 180f, buttonWidth, buttonHeight), emptyCodeCheck))
                 {
-                    HandleJoinRoom();
+                    RoomPatches.JoinRoomWithCode(roomCode);
                 }
 
                 if (PhotonNetwork.InRoom)
                 {
                     if (GUI.Button(new Rect(buttonX, Screen.height - 210f, buttonWidth, buttonHeight), "Leave Room"))
                     {
-                        LeaveRoom();
+                        RoomPatches.Disconnect();
                     }
 
                     DisplayRoomInfo();
@@ -265,31 +271,6 @@ namespace SkibidiFreecam
             GUI.EndGroup();
         }
 
-        private void HandleJoinRoom()
-        {
-            if (!string.IsNullOrEmpty(roomCode) && emptyCodeCheck == "" && roomCode == roomCode.ToUpper())
-            {
-                emptyCodeCheck = "";
-
-                if (PhotonNetwork.InRoom)
-                {
-                    NetworkSystem.Instance.ReturnToSinglePlayer();
-                }
-
-                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomCode, GorillaNetworking.JoinType.Solo);
-            }
-            else
-            {
-                emptyCodeCheck = "Code Invalid!";
-                StartCoroutine(ResetErrorMessage());
-            }
-        }
-
-        private void LeaveRoom()
-        {
-            NetworkSystem.Instance.ReturnToSinglePlayer();
-        }
-
         private void DisplayRoomInfo()
         {
             GUI.Label(new Rect(30f, Screen.height - 120, 170, 20), "Code: " + PhotonNetwork.CurrentRoom.Name);
@@ -300,12 +281,16 @@ namespace SkibidiFreecam
         {
             if (GUI.Button(new Rect(30f, Screen.height - 210f, 180f, 30f), "Rejoin"))
             {
-                Rejoin();
+#pragma warning disable CS4014
+                RoomPatches.Rejoin(roomCode);
+#pragma warning disable CS4014
             }
 
             if (GUI.Button(new Rect(30f, Screen.height - 240f, 180f, 30f), "Generate Room"))
             {
-                Generate();
+#pragma warning disable CS4014
+                RoomPatches.Generate(roomCode);
+#pragma warning restore CS4014 
             }
         }
 
@@ -319,30 +304,6 @@ namespace SkibidiFreecam
         {
             yield return new WaitForSeconds(3);
             emptyCodeCheck = "Join Code";
-        }
-
-        private async Task Generate()
-        {
-            if (PhotonNetwork.InRoom)
-            {
-                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomCode, GorillaNetworking.JoinType.Solo);
-            }
-
-            string code = null;
-
-            if (NetworkSystem.Instance.InRoom)
-            {
-                await NetworkSystem.Instance.ReturnToSinglePlayer();
-            }
-
-            await Task.Delay(1000);
-            PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(code, GorillaNetworking.JoinType.Solo);
-        }
-
-        private async Task Rejoin()
-        {
-            await Task.Delay(3000);
-            PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(code, GorillaNetworking.JoinType.Solo);
         }
     }
 }

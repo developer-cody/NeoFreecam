@@ -1,20 +1,13 @@
 ﻿using GorillaNetworking;
-using PlayFab.GroupsModels;
 using SkibidiFreecam;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class RayCast : MonoBehaviour
 {
-    // Bools
-    private bool isMouseMoving;
-
     // Layers
-    public LayerMask interactableMask, propMask;
-
-    // Vectors
-    private Vector3 lastMousePosition;
+    public static readonly LayerMask raycastLayerMask = ~LayerMask.GetMask(LayerMask.LayerToName(15), LayerMask.LayerToName(3), LayerMask.LayerToName(11));
+    //public LayerMask interactableMask, propMask;
 
     // Floats
     private const float RaycastDistance = 10f, MouseDeadZone = 1f;
@@ -24,20 +17,16 @@ public class RayCast : MonoBehaviour
     void Start()
     {
         PhotonNetworkController.Instance.disableAFKKick = true;
-
-        interactableMask = LayerMask.GetMask("GorillaInteractable");
-
-      sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //interactableMask = LayerMask.GetMask("GorillaInteractable");
+        sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Destroy(sphere.GetComponent<SphereCollider>());
         sphere.GetComponent<Renderer>().material.shader = GorillaTagger.Instance.offlineVRRig.mainSkin.material.shader;
         sphere.transform.localScale = new Vector3(.1f, .1f, .1f);
         sphere.name = "Mouse";
-
     }
 
     void Update()
     {
-
         Vector3 mousepositon = Mouse.current.position.ReadValue();
         mousepositon.z = 5f;
         mousepositon = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenToWorldPoint(mousepositon);
@@ -47,7 +36,10 @@ public class RayCast : MonoBehaviour
         {
             if (Mouse.current.leftButton.isPressed)
             {
-                HandleRaycast();
+                Ray ray;
+                LayerMask mask = LayerMask.GetMask(new string[] { "Gorilla Trigger", "Zone", "Gorilla Body" });
+                if (GorillaTagger.Instance.thirdPersonCamera.activeInHierarchy) { ray = GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().ScreenPointToRay(Mouse.current.position.value); } else { ray = Camera.main.ScreenPointToRay(Mouse.current.position.value); }
+                if (Physics.Raycast(ray, out RaycastHit hit, 5f, ~mask)) { GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point; }
             }
             else
             {
@@ -59,30 +51,6 @@ public class RayCast : MonoBehaviour
             HandleHandPositioning(Plugin.Intense.HandR.transform, Mouse.current.rightButton.isPressed);
             HandleHandPositioning(Plugin.Intense.HandL.transform, Mouse.current.leftButton.isPressed);
         }
-
-       
-    }
-
-
-    private void HandleRaycast()
-    {
-        Ray ray = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit,100,interactableMask))
-        {
-            UpdateHandPosition(hit.transform.position);
-            Debug.Log("hit: " + hit.transform.gameObject.name);
-        }
-
-    }
-
-    private void UpdateHandPosition(Vector3 hitPoint)
-    {
-        GorillaTagger.Instance.rightHandTransform.transform.position = hitPoint;
-
-        GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hitPoint;
-
     }
 
     private void HandleHandPositioning(Transform handTransform, bool isButtonPressed)

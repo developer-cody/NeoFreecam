@@ -1,36 +1,28 @@
-﻿using HarmonyLib;
-using System.Reflection;
+﻿using System.Reflection;
+using HarmonyLib;
 
-namespace SkibidiFreecam.Patches
+namespace SkibidiFreecam
 {
     public class HarmonyPatches
     {
-        private static Harmony instance;
+        private static readonly Harmony instance = new Harmony(PluginInfo.GUID);
 
         public static bool IsPatched { get; private set; }
-        public const string InstanceId = PluginInfo.GUID;
 
         internal static void ApplyHarmonyPatches()
         {
-            if (!IsPatched)
-            {
-                if (instance == null)
-                {
-                    instance = new Harmony(InstanceId);
-                }
+            if (IsPatched) return;
 
-                instance.PatchAll(Assembly.GetExecutingAssembly());
-                IsPatched = true;
-            }
+            instance.PatchAll(Assembly.GetExecutingAssembly());
+            IsPatched = true;
         }
 
         internal static void RemoveHarmonyPatches()
         {
-            if (instance != null && IsPatched)
-            {
-                instance.UnpatchSelf();
-                IsPatched = false;
-            }
+            if (!IsPatched) return;
+
+            instance.UnpatchSelf();
+            IsPatched = false;
         }
     }
 }

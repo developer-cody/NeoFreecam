@@ -493,3 +493,7 @@ C:\Users\Nutzer\Desktop\Alle Ordner\vr\GitHub\SkibidiFreecam\SkibidiFreecam\obj\
 C:\Users\Nutzer\Desktop\Alle Ordner\vr\GitHub\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.1\SkibidiF.1311C941.Up2Date
 C:\Users\Nutzer\Desktop\Alle Ordner\vr\GitHub\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.1\SkibidiFreecam.dll
 C:\Users\Nutzer\Desktop\Alle Ordner\vr\GitHub\SkibidiFreecam\SkibidiFreecam\obj\Debug\netstandard2.1\SkibidiFreecam.pdb
+C:\Users\rgerm\source\repos\Gtmods\SkibidiFreecam\SkibidiFreecam\bin\Debug\netstandard2.1\LIV.LCK_GorillaTag.dll
+C:\Users\rgerm\source\repos\Gtmods\SkibidiFreecam\SkibidiFreecam\bin\Debug\netstandard2.1\LIV.LCK.dll
+C:\Users\rgerm\source\repos\Gtmods\SkibidiFreecam\SkibidiFreecam\bin\Debug\netstandard2.1\LIV.NativeAudioBridge.dll
+C:\Users\rgerm\source\repos\Gtmods\SkibidiFreecam\SkibidiFreecam\bin\Debug\netstandard2.1\NativeGallery.dll
