@@ -5,10 +5,8 @@ namespace NeoFreecam.Movement
 {
     public class CamMovement : MonoBehaviour
     {
-        // Vectors
         private Vector2 lastMousePosition = Vector2.zero;
 
-        // Float
         private const float HorizontalMultiplier = 6f, VerticalMultiplier = 4.5f;
         public float movementSpeed = 1.5f, cameraMovement = .1f, smoothFactor = 0.5f, currentRotationX = 0f;
 

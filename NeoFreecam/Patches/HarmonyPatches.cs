@@ -5,7 +5,7 @@ namespace NeoFreecam
 {
     public class HarmonyPatches
     {
-        private static readonly Harmony instance = new Harmony(PluginInfo.GUID);
+        private static readonly Harmony instance = new Harmony(Constants.GUID);
 
         public static bool IsPatched { get; private set; }
 

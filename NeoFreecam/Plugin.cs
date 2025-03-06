@@ -1,8 +1,6 @@
 ﻿using BepInEx;
 using Photon.Pun;
 using NeoFreecam.Movement;
-using NeoFreecam.Patches;
-// using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using GorillaLocomotion;
@@ -10,31 +8,25 @@ using GorillaNetworking;
 
 namespace NeoFreecam
 {
-    [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
+    [BepInPlugin(Constants.GUID, Constants.Name, Constants.Version)]
     public class Plugin : BaseUnityPlugin
     {
-        // GameObjects
         public GameObject Head, HandL, HandR, FlyCamera;
 
-        // Bools
         private bool rigConnected = true, guiEnabled = true, rigCanBeSeen = false, toggleNoclip;
         private static bool InModded => NetworkSystem.Instance.InRoom && NetworkSystem.Instance.GameModeString.ToLower().Contains("modded");
         public static bool lockedCursorState, NormalGameModes, ModdedGameModes;
 
-        // Classes
         public static Plugin Intense { get; set; }
         public CamMovement camMovementScript;
 
-        // Integers
         public static int Layer = 29, LayerMask = 1 << Layer;
         private LayerMask baseMask;
 
-        // Strings
         string roomCode = "NEO";
         private static string emptyCodeCheck = "Join Code";
         private string code;
 
-        // Speed control
         private float speedSliderValue = 1.5f;
 
         void Start()
@@ -70,7 +62,6 @@ namespace NeoFreecam
             FlyCamera.GetComponent<Camera>().nearClipPlane = 0.01f;
 
             FlyCamera.transform.position = Camera.main.transform.position;
-
             Destroy(GorillaTagger.Instance.thirdPersonCamera);
         }
 
@@ -156,15 +147,33 @@ namespace NeoFreecam
                 rigConnected = !rigConnected;
             }
 
-            if (Keyboard.current.lKey.wasPressedThisFrame)
-            {
-                lockedCursorState = !lockedCursorState;
-                UpdateCursorState();
-            }
-
             if (Keyboard.current.iKey.wasPressedThisFrame)
             {
                 toggleNoclip = !toggleNoclip;
+            }
+
+            if (Keyboard.current.rKey.isPressed)
+            {
+                Report(true);
+            }
+            else
+            {
+                Report(false);
+            }
+        }
+
+        private void Report(bool yes)
+        {
+            Vector3 OldPOS = FlyCamera.transform.position;
+            Vector3 POS = new Vector3(-61.8696f, 4.0192f, - 61.8069f);
+
+            if (yes)
+            {
+                FlyCamera.transform.position = POS;
+            }
+            else
+            {
+                FlyCamera.transform.position = OldPOS;
             }
         }
 
@@ -184,20 +193,6 @@ namespace NeoFreecam
 
             Player.Instance.bodyCollider.isTrigger = false;
             Player.Instance.headCollider.isTrigger = false;
-        }
-
-        private void UpdateCursorState()
-        {
-            if (lockedCursorState)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
         }
 
         private void ResetColliders()
@@ -369,13 +364,5 @@ namespace NeoFreecam
             GUI.Label(new Rect(30f, Screen.height - 80, 300, 20), "Live regional player count: " + PhotonNetwork.CountOfPlayers);
             GUI.Label(new Rect(30f, Screen.height - 60, 300, 20), "Live regional Room count: " + PhotonNetwork.CountOfRooms);
         }
-
-        /*
-        private IEnumerator ResetErrorMessage()
-        {
-            yield return new WaitForSeconds(3);
-            emptyCodeCheck = "Join Code";
-        }
-        */
     }
 }

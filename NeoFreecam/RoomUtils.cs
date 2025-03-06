@@ -2,12 +2,11 @@
 using Photon.Pun;
 using System.Threading.Tasks;
 
-namespace NeoFreecam.Patches
+namespace NeoFreecam
 {
     public static class RoomUtils
     {
         public static void JoinRoomWithCode(string code) => TryJoinRoom(code);
-
         public static void Disconnect() => NetworkSystem.Instance.ReturnToSinglePlayer();
 
         public static async Task Generate(string code)
