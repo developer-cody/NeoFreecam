@@ -276,4 +276,8 @@
       <HintPath>$(GameAssemblyPath)\websocket-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="mkdir &quot;D:\SteamLibrary\steamapps\common\Gorilla Tag\BepInEx\plugins\$(TargetName)&quot;&#xD;&#xA;xcopy /q/y/i &quot;$(TargetPath)&quot; &quot;D:\SteamLibrary\steamapps\common\Gorilla Tag\BepInEx\plugins\$(TargetName)&quot; /E /H /C" />
+  </Target>
 </Project>

@@ -1,0 +1,147 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|d:\\code mods games\\code\\coding\\repos\\gtmods\\neofreecam\\neofreecam\\movement\\raycast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|solutionrelative:movement\\raycast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|d:\\code mods games\\code\\coding\\repos\\gtmods\\neofreecam\\neofreecam\\movement\\cammovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|solutionrelative:movement\\cammovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|d:\\code mods games\\code\\coding\\repos\\gtmods\\neofreecam\\neofreecam\\neofreecam.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|solutionrelative:neofreecam.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|d:\\code mods games\\code\\coding\\repos\\gtmods\\neofreecam\\neofreecam\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|solutionrelative:plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|d:\\code mods games\\code\\coding\\repos\\gtmods\\neofreecam\\neofreecam\\constants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|solutionrelative:constants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|d:\\code mods games\\code\\coding\\repos\\gtmods\\neofreecam\\neofreecam\\roomutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FFA2996-FBDE-4189-9E96-705D426C65A8}|NeoFreecam.csproj|solutionrelative:roomutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NeoFreecam",
+              "DocumentMoniker": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\NeoFreecam.csproj",
+              "RelativeDocumentMoniker": "NeoFreecam.csproj",
+              "ToolTip": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\NeoFreecam.csproj",
+              "RelativeToolTip": "NeoFreecam.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-10T22:12:26.325Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RoomUtils.cs",
+              "DocumentMoniker": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\RoomUtils.cs",
+              "RelativeDocumentMoniker": "RoomUtils.cs",
+              "ToolTip": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\RoomUtils.cs",
+              "RelativeToolTip": "RoomUtils.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAwwAgAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T01:59:39.507Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Constants.cs",
+              "DocumentMoniker": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Constants.cs",
+              "RelativeDocumentMoniker": "Constants.cs",
+              "ToolTip": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Constants.cs",
+              "RelativeToolTip": "Constants.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T18:21:40.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CamMovement.cs",
+              "DocumentMoniker": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Movement\\CamMovement.cs",
+              "RelativeDocumentMoniker": "Movement\\CamMovement.cs",
+              "ToolTip": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Movement\\CamMovement.cs",
+              "RelativeToolTip": "Movement\\CamMovement.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T17:53:51.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RayCast.cs",
+              "DocumentMoniker": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Movement\\RayCast.cs",
+              "RelativeDocumentMoniker": "Movement\\RayCast.cs",
+              "ToolTip": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Movement\\RayCast.cs*",
+              "RelativeToolTip": "Movement\\RayCast.cs*",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T17:51:41.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Plugin.cs",
+              "DocumentMoniker": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Plugin.cs",
+              "RelativeDocumentMoniker": "Plugin.cs",
+              "ToolTip": "D:\\Code Mods Games\\Code\\Coding\\repos\\Gtmods\\NeoFreecam\\NeoFreecam\\Plugin.cs",
+              "RelativeToolTip": "Plugin.cs",
+              "ViewState": "AgIAAFMBAAAAAAAAAAAgwGMBAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T17:47:17.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

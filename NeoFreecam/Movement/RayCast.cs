@@ -7,79 +7,60 @@ namespace NeoFreecam
     public class RayCast : MonoBehaviour
     {
         GameObject Sphere;
-        public static readonly LayerMask raycastLayerMask = ~LayerMask.GetMask(LayerMask.LayerToName(15), LayerMask.LayerToName(3), LayerMask.LayerToName(11));
+        void Start() => GorillaTagger.OnPlayerSpawned(InitStuff);
 
-        void Start()
+        void InitStuff()
         {
             PhotonNetworkController.Instance.disableAFKKick = true;
             Sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            Destroy(Sphere.GetComponent<SphereCollider>());
-            Sphere.GetComponent<Renderer>().material = GorillaTagger.Instance.offlineVRRig.mainSkin.material;
+            Sphere.GetComponent<Renderer>().material.shader = Shader.Find("GorillaTag/UberShader");
+            Sphere.GetComponent<Renderer>().material.color = Color.white;
             Sphere.transform.localScale = new Vector3(.1f, .1f, .1f);
             Sphere.name = "Mouse";
+            Destroy(Sphere.GetComponent<SphereCollider>());
+
+            ResetHandPositions();
         }
 
-        void Update()
+        void FixedUpdate()
         {
-            Vector3 mousePosition = Mouse.current.position.ReadValue();
-            mousePosition.z = 5f;
-            mousePosition = Plugin.Intense.FlyCamera.GetComponent<Camera>().ScreenToWorldPoint(mousePosition);
-            Sphere.transform.position = mousePosition;
+            LayerMask interactionMask = LayerMask.GetMask("Gorilla Trigger", "Zone");
+            Camera activeCamera = Plugin.Intense.FlyCamera.GetComponent<Camera>();
+            Ray ray = activeCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-            if (!Plugin.lockedCursorState)
+            if (Mouse.current.leftButton.isPressed)
             {
-                if (Mouse.current.leftButton.isPressed)
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, 10f, ~interactionMask))
                 {
-                    Camera activeCamera = GorillaTagger.Instance.thirdPersonCamera.activeInHierarchy
-                        ? GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>()
-                        : Camera.main;
+                    GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hitInfo.point;
 
-                    Ray ray = activeCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-                    LayerMask mask = LayerMask.GetMask("GorillaInteractable", "Default", "UI");
-
-                    if (Physics.Raycast(ray, out RaycastHit hit, 10f, mask))
-                    {
-                        Debug.Log("Raycast hit: " + hit.collider.name);
-                        GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
-                    }
-                    else
-                    {
-                        Debug.Log("Raycast did not hit anything.");
-                    }
-                }
-                else
-                {
-                    ResetHandPositions();
+                    Sphere.SetActive(true);
+                    Sphere.transform.position = hitInfo.point;
                 }
             }
             else
             {
-                HandleHandPositioning(Plugin.Intense.HandR.transform, Mouse.current.rightButton.isPressed);
-                HandleHandPositioning(Plugin.Intense.HandL.transform, Mouse.current.leftButton.isPressed);
+                Sphere.SetActive(false);
             }
         }
 
         private void HandleHandPositioning(Transform handTransform, bool isButtonPressed)
         {
+            if (handTransform == null)
+                return;
+
             Vector3 defaultPos = new Vector3(0f, -0.4f, 0.1f);
-            Vector3 defaultEulerAngles = handTransform == Plugin.Intense.HandL ? Vector3.zero : new Vector3(0, -14.78f, -5f);
+            Vector3 activePos = new Vector3(handTransform.localPosition.x, -0.12f, 0.65f);
+            Vector3 defaultEulerAngles = new Vector3(0, -14.78f, -5f);
 
-            if (isButtonPressed)
-            {
-                handTransform.localPosition = new Vector3(handTransform.localPosition.x, -0.15f, 0.7f);
-            }
-            else
-            {
-                handTransform.localPosition = defaultPos;
-            }
-
+            handTransform.localPosition = isButtonPressed ? Vector3.Lerp(handTransform.localPosition, activePos, 0.2f) : defaultPos;
             handTransform.localEulerAngles = defaultEulerAngles;
 
-            if (handTransform == Plugin.Intense.HandR)
+            if (ReferenceEquals(handTransform, Plugin.Intense.HandR))
             {
                 GorillaTagger.Instance.rightHandTriggerCollider.transform.position = handTransform.position;
             }
-            else
+            else if (ReferenceEquals(handTransform, Plugin.Intense.HandL))
             {
                 GorillaTagger.Instance.leftHandTriggerCollider.transform.position = handTransform.position;
             }
