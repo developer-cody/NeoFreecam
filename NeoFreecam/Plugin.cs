@@ -15,7 +15,7 @@ namespace NeoFreecam
 
         private bool rigConnected = true, guiEnabled = true, rigCanBeSeen = false, toggleNoclip;
         private static bool InModded => NetworkSystem.Instance.InRoom && NetworkSystem.Instance.GameModeString.ToLower().Contains("modded");
-        public static bool lockedCursorState, NormalGameModes, ModdedGameModes;
+        public static bool NormalGameModes, ModdedGameModes;
 
         public static Plugin Intense { get; set; }
         public CamMovement camMovementScript;
@@ -52,6 +52,7 @@ namespace NeoFreecam
 
             HandL.transform.SetParent(Camera.main.transform);
             HandR.transform.SetParent(Camera.main.transform);
+
             GorillaTagger.Instance.leftHandTransform.SetParent(Camera.main.transform);
             GorillaTagger.Instance.rightHandTransform.SetParent(Camera.main.transform);
 
@@ -134,7 +135,7 @@ namespace NeoFreecam
                 GorillaTagger.Instance.mainCamera.transform.rotation = FlyCamera.transform.rotation;
             }
         }
-        
+
         private void HandleKeyboardInputs()
         {
             if (Keyboard.current.hKey.wasPressedThisFrame)
@@ -145,35 +146,15 @@ namespace NeoFreecam
             if (Keyboard.current.cKey.wasPressedThisFrame)
             {
                 rigConnected = !rigConnected;
+                if (!rigConnected)
+                {
+                    ResetColliders();
+                }
             }
 
             if (Keyboard.current.iKey.wasPressedThisFrame)
             {
                 toggleNoclip = !toggleNoclip;
-            }
-
-            if (Keyboard.current.rKey.isPressed)
-            {
-                Report(true);
-            }
-            else
-            {
-                Report(false);
-            }
-        }
-
-        private void Report(bool yes)
-        {
-            Vector3 OldPOS = FlyCamera.transform.position;
-            Vector3 POS = new Vector3(-61.8696f, 4.0192f, - 61.8069f);
-
-            if (yes)
-            {
-                FlyCamera.transform.position = POS;
-            }
-            else
-            {
-                FlyCamera.transform.position = OldPOS;
             }
         }
 
@@ -279,7 +260,7 @@ namespace NeoFreecam
                     {
                         GorillaComputer.instance.currentGameMode.Value = "GUARDIAN";
                     }
-                    
+
                     if (GUI.Button(new Rect(gamemodeButtonX, Screen.height - 115f, buttonWidth, buttonHeight), "Freeze Tag"))
                     {
                         GorillaComputer.instance.currentGameMode.Value = "FREEZETAG";
@@ -346,16 +327,16 @@ namespace NeoFreecam
         {
             if (GUI.Button(new Rect(30f, Screen.height - 210f, 180f, 30f), "Rejoin"))
             {
-                #pragma warning disable CS4014
+#pragma warning disable CS4014
                 RoomUtils.Rejoin(roomCode);
-                #pragma warning disable CS4014
+#pragma warning disable CS4014
             }
 
             if (GUI.Button(new Rect(30f, Screen.height - 240f, 180f, 30f), "Generate Room"))
             {
-                #pragma warning disable CS4014
+#pragma warning disable CS4014
                 RoomUtils.Generate(roomCode);
-                #pragma warning restore CS4014 
+#pragma warning restore CS4014
             }
         }
 

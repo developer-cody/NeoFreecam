@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NeoFreecam")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66567a30a542d8f774092e4d5fb2c3f9c069d736")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49866fa5ec8e8b959c6354a31af41a8bc5e98ecd")]
 [assembly: System.Reflection.AssemblyProductAttribute("NeoFreecam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NeoFreecam")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

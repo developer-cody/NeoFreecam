@@ -22,23 +22,26 @@ namespace NeoFreecam.Movement
             Vector3 rightMovement = Plugin.Intense.FlyCamera.transform.right * HorizontalMultiplier;
             Vector3 movementDirection = Vector3.zero;
 
-            switch (true)
+            var CurrentKey = Keyboard.current;
+
+            if (CurrentKey.wKey.isPressed)
             {
-                case bool _ when Keyboard.current.wKey.isPressed:
-                    movementDirection += forwardMovement;
-                    break;
-
-                case bool _ when Keyboard.current.sKey.isPressed:
-                    movementDirection -= forwardMovement;
-                    break;
-
-                case bool _ when Keyboard.current.aKey.isPressed:
-                    movementDirection -= rightMovement;
-                    break;
-
-                case bool _ when Keyboard.current.dKey.isPressed:
-                    movementDirection += rightMovement;
-                    break;
+                movementDirection += forwardMovement;
+            }
+            
+            if (CurrentKey.sKey.isPressed)
+            {
+                movementDirection -= forwardMovement;
+            }
+            
+            if (CurrentKey.dKey.isPressed)
+            {
+                movementDirection += rightMovement;
+            }
+            
+            if (CurrentKey.aKey.isPressed)
+            {
+                movementDirection -= rightMovement;
             }
 
             Plugin.Intense.FlyCamera.transform.position += movementDirection * movementSpeed * Time.deltaTime;
@@ -46,7 +49,7 @@ namespace NeoFreecam.Movement
 
         private void HandleRotation()
         {
-            if (Mouse.current.rightButton.isPressed && !Plugin.lockedCursorState || Plugin.lockedCursorState)
+            if (Mouse.current.rightButton.isPressed)
             {
                 Vector2 mouseDelta = Mouse.current.delta.ReadValue();
                 Vector2 smoothedDelta = Vector2.Lerp(lastMousePosition, mouseDelta, smoothFactor);
